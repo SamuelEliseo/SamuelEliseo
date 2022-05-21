@@ -1,0 +1,51 @@
+﻿@using CAEP.Miscelaneos
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@{
+    var tema = Propiedades._gTemaDefault;
+    foreach (var cookie in HttpContextAccessor.HttpContext.Request.Cookies)
+    {
+        if (cookie.Key == "dx-theme")
+        {
+            tema = cookie.Value;
+        }
+    }
+
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Aplicación WEB GGM(@(Propiedades._gNombreSistema))">
+    <meta name="author" content="GGM(@(Propiedades._gNombreSistema))">
+
+    <title>@ViewData["Titulo"] - @(Propiedades._gNombreSistema)</title>
+    <link href="~/imgs/Icon.ico" rel="shortcut icon" type="image/x-icon" />
+
+    @* ESTILOS CSS *@
+    <link href="~/css/devextreme/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/devextreme/dx.common.css" rel="stylesheet" />
+    <link rel="dx-theme" data-theme="generic.cbt" href="~/css/devextreme/dx.cbt.css" data-active="@(tema == "generic.cbt" ? "true" : "false")">
+    <link rel="dx-theme" data-theme="generic.darkcbt" href="~/css/devextreme/dx.darkcbt.css" data-active="@(tema == "generic.darkcbt" ? "true" : "false")">
+    <link rel="dx-theme" data-theme="generic.cbt.compact" href="~/css/devextreme/dx.cbt.compact.css" data-active="@(tema == "generic.cbt.compact" ? "true" : "false")">
+    <link rel="dx-theme" data-theme="generic.darkcbt.compact" href="~/css/devextreme/dx.darkcbt.compact.css" data-active="@(tema == "generic.darkcbt.compact" ? "true" : "false")">
+    <link href="~/css/global/toastr.css" rel="stylesheet" />
+    @RenderSection("Estilos", required: false)
+</head>
+<body class="dx-theme-background-color">
+    @* CÓDIGO JAVASCRIPT *@
+    <script src="~/js/devextreme/jquery.js"></script>
+    <script src="~/js/devextreme/bootstrap.js"></script>
+    <script src="~/js/devextreme/dx.all.js"></script>
+    <script src="~/js/devextreme/aspnet/dx.aspnet.mvc.js"></script>
+    <script src="~/js/devextreme/aspnet/dx.aspnet.data.js"></script>
+    <script src="~/js/devextreme/localization/dx.intl.js"></script>
+    <script src="~/js/devextreme/localization/dx.messages.es.js"></script>
+    <script src="~/js/global/Toastr.js"></script>
+
+    @RenderBody()
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

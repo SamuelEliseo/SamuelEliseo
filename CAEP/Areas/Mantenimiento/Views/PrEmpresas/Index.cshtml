@@ -1,0 +1,97 @@
+﻿@{
+    ViewData["Titulo"] = "Empresas";
+}
+
+@section Estilos {
+    <style>
+        #contenedor_height_auto {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 100%;
+            top: 100%;
+            transform: translate(-100%, -100%);
+        }
+    </style>
+}
+
+<div id="contenedor_height_auto" class="h-100 dx-theme-accent-as-border-color " style="display:flex; flex-direction:column; padding:4px !important;">
+    <div id="contenedor_centrado" class="fondo_panel  sombra1 dx-theme-accent-as-background-color" >
+        <div class="card-header p-1 m-1">
+            <h5 class="text-white m-0 p-0 text-uppercase fuente_family font-weight-bold align-items-center justify-content-center" style="text-align:center">
+                <img src="" style="width:26px;margin-right:4px" /><span style="margin-top:1px">GESTIÓN DE EMPRESAS</span>
+            </h5>
+        </div>
+    </div>
+    <div class="linea" style=""></div>
+    <div class="card-body dx-theme-accent-as-border-color h-100" style="flex:1; display:flex; padding:0px;overflow:hidden !important; border:1px solid; border-color:yellow">
+        <div id="content_dgv" style="flex:1; border-right:1px solid; border-left:1px solid;" class="dx-theme-accent-as-border-color">
+            @(Html.DevExtreme().DataGrid<CAEP.Data.CAEP.PrEmpresas>()
+                .DataSource(ds => ds.Mvc()
+                    .LoadAction("Get")
+                    .InsertAction("Post")
+                    .UpdateAction("Put")
+                    .DeleteAction("Delete")
+                    .Key("IdEmpresa")
+                )
+                .ID("DgvMantenimiento")
+                .RemoteOperations(true)
+                .Columns(columns =>
+                {
+                    columns.AddFor(m => m.CodEmpresa).Caption("Codigo").Width("10%");
+
+                    columns.AddFor(m => m.NombreEmpresa).Caption("Nombre Empresa").Width("30%");
+                    columns.AddFor(m => m.Direccion).Caption("Dirección");
+                    columns.AddFor(m => m.Activo).Caption("Activo").Width("10%");
+
+                })
+                .Editing(e => e
+                    .Mode(GridEditMode.Batch)
+                    .UseIcons(true)
+                    .AllowAdding(true)
+                    .AllowUpdating(true)
+                    .AllowDeleting(true)
+                    .SelectTextOnEditStart(true)
+                )
+                .Height(350).ElementAttr("dx-theme-accent-as-border-color ")
+                .ShowBorders(true)
+                .ShowRowLines(false)
+                .ShowColumnLines(true)
+                .CustomizeColumns("CustomizeColumns_Dgv")
+                .KeyboardNavigation(options =>
+                {
+                    options.EnterKeyAction(GridEnterKeyAction.StartEdit);
+                    options.EditOnKeyPress(true);
+                    options.EnterKeyDirection(GridEnterKeyDirection.Column);
+                })
+                .Export(e => e.Enabled(true).FileName("DatosEmpresas").AllowExportSelectedData(false))
+                .Paging(p => p.Enabled(false))
+                .SearchPanel(s => s.Visible(true))
+                .OnFocusedCellChanging(@<text>function(e) {e.isHighlighted = true;}</text>)
+.RowAlternationEnabled(true)
+.HeaderFilter(headerFilter => headerFilter.Visible(!true))
+.FilterPanel(filterPanel => filterPanel.Visible(true))
+.FilterRow(filterRow => filterRow.Visible(!true))
+.FocusedRowEnabled(true)
+.Summary(s => s.TotalItems(items =>
+{
+items.AddFor(m => m.CodEmpresa)
+.SummaryType(SummaryType.Count)
+.CustomizeText("function(data){return 'Total: ' + data.value }");
+}))
+.OnCellClick("function(e) { if (e.column && !e.column.lookup && (e.column.userDataType && e.column.userDataType!='date')) { e.component.focus(e.cellElement); e.component.closeEditCell(); e.event.stopPropagation();} if (e.row && e.row.rowType == 'data' && e.row.isNewRow) {e.component.option('focusedRowIndex', e.row.rowIndex);}}")
+.OnFocusedCellChanged("function(e) {e.isHighlighted = true; if (e.row && e.row.rowType == 'data' && e.row.isNewRow) {e.component.option('focusedRowIndex', e.row.rowIndex);}}")
+            )
+        </div>
+    </div>
+    <div class="linea"></div>
+    <div class="p-0 dx-theme-accent-as-background-color" style="height:7px">
+    </div>
+</div>
+
+<script>    
+    window.addEventListener('load', function () {
+            $("#DgvMantenimiento").dxDataGrid("instance").option("height", $("#content_dgv").height())
+        })
+</script>
+

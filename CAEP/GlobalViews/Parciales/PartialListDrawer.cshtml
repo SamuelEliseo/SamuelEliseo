@@ -1,0 +1,39 @@
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@using CAEP.Miscelaneos
+
+<div style="width: 260px; padding-left:5px; padding-top:2px;" class="panel-list dx-theme-accent-as-background-color">
+    @(Html.DevExtreme().TreeView()
+    .ID("simple-treeview")
+    .DataSource(@HttpContextAccessor.HttpContext.Session.Get<List<Menu>>("SESSION_MENU"))
+    .DisplayExpr("menu")
+    .ItemsExpr("items")
+    .ExpandedExpr("expandido")
+    .SelectedExpr("seleccionado")
+    .Width("100%")
+    .SelectionMode(NavSelectionMode.Single)
+    .OnItemClick("treeViewItemClick")
+    //.ElementAttr("class", "dx-theme-background-color-as-text-color")
+    .NoDataText("SIN MENÚ DE OPCIONES")
+    .OnContentReady("OnContentReady_simple_treeview")
+    .ItemTemplate(@<text>
+                    <% if(items.length == 0 && nombreLogicoPadre != "") { %>
+                    <div class="row">
+                        <div style="text-decoration: none !important; font-weight:normal; font-size:13px !important;color:white !important" class="fuente_family col-md-11 offset-1 align-self-center"><%- menu %></div>
+                    </div>
+                    <% } else if(items.length >= 0 && nombreLogicoPadre != "") { %>
+                    <div style="font-weight:bold; font-size:14px !important;color:white !important" class="fuente_family"><%- menu %></div>
+                    <% } else { %>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <% if(imagen != "") { %>
+                            <img src="~/imgs/<%- imagen %>" style="width:25px" />
+                            <% } %>
+                        </div>
+                        <div style="font-weight:bold; font-size:15px !important;color:white !important" class="fuente_family col-md-10 align-self-center"><%- menu %></div>
+                    </div>
+                    <% } %>
+        </text>)
+        )
+    <h5 style="text-align:right; position:absolute;bottom:0px; right:0px; width:100%; background:#138D75;height:7px" class="fuente_family m-0"></h5>
+</div>
+

@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Areas\Reportes\Controllers\" />
+    <Folder Include="Areas\Transacciones\Controllers\" />
+    <Folder Include="Data\CAEP\" />
+    <Folder Include="Data\SCUP\" />
+    <Folder Include="Models\Mantenimiento\" />
+    <Folder Include="Models\Reportes\" />
+    <Folder Include="Helpers\" />
+    <Folder Include="Models\Transacciones\" />
+    <Folder Include="Models\Visores\" />
+    <Folder Include="wwwroot\css\reportes\" />
+    <Folder Include="wwwroot\css\visores\" />
+    <Folder Include="wwwroot\js\principal\" />
+    <Folder Include="wwwroot\js\reportes\" />
+    <Folder Include="wwwroot\js\visores\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Caching.SqlServer" Version="3.1.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+    <PackageReference Include="DevExtreme.AspNet.Core" Version="19.2.5" />
+    <PackageReference Include="DevExtreme.AspNet.Data" Version="2.5.1" />
+  </ItemGroup>
+  <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="https://json.schemastore.org/mimetypes.json" /></VisualStudio></ProjectExtensions>
+</Project>

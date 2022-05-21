@@ -1,0 +1,125 @@
+﻿@using CAEP.Models.Principal.Default
+@model CAEP.Models.Principal.Default.LoginViewModel
+@{
+    Layout = "~/GlobalViews/_LayoutOut.cshtml";
+    ViewData["Titulo"] = "Login";
+}
+
+@section Estilos{
+    <link href="~/css/principal/login.css" rel="stylesheet" asp-append-version="true" />
+}
+<div id="contenido">
+    <div id="form" class="dx-theme-accent-as-border-color">
+        <h2 class="dx-theme-accent-as-text-color">Inicio de Sesión</h2>
+        <form asp-action="IniciarSesion">
+            @using (Html.DevExtreme().ValidationGroup())
+            {
+                @Html.AntiForgeryToken()
+
+                @(Html.DevExtreme().Form<LoginViewModel>()
+                    .ShowValidationSummary(!true)
+                    .ColCount(1)
+                    .LabelLocation(FormLabelLocation.Top)
+                    .MinColWidth(300)
+                    .ReadOnly(false)
+                    .ShowColonAfterLabel(true)
+                    .Items(items =>
+                            {
+
+                        items.AddSimpleFor(m => m.NombreUsuario)
+                            .Label(l => l.Text("Nombre de Usuario"))
+                            .Editor(e => e
+                                .TextBox().ID("NombreUsuario")
+                                .ElementAttr("class", "uppercase")
+                                .ShowClearButton(true).OnValueChanged("onChangeUsuarioLogin")
+                            );
+                        items.AddSimpleFor(m => m.Contrasena)
+                            .Label(l => l.Text("Contraseña"))
+                            .Editor(e => e
+                                .TextBox()
+                                .Mode(TextBoxMode.Password)
+                                .ShowClearButton(true)
+                            );
+
+                        items.AddSimpleFor(m => m.IdEmpresa)
+                                   .Label(l => l.Text("Empresa"))
+                                   .Editor(e => e
+                                       .SelectBox()
+                                       .ID("CboEmpresa")
+                                       .NoDataText("No se encontraron empresas del usuario")
+                                       .Placeholder("Selecciona la empresa")
+                                       .DataSource(d => d.Mvc()
+                                                          .LoadAction("GetEmpresasUsuario")
+                                                          .LoadMode(DataSourceLoadMode.Raw)
+                                                          .LoadParams(new { Usuario = new JS("function() { return $('#NombreUsuario').dxTextBox('instance').option('value'); }") })
+                                                          .Key("IdEmpresa")
+                                                      )
+                                       .SearchEnabled(true).OnValueChanged("onChangeEmpresaLogin")
+                                       .DisplayExpr("NombreEmpresa")
+                                       .ValueExpr("IdEmpresa")
+                                   );
+
+                        items.AddSimpleFor(m => m.IdCC)
+                                   .Label(l => l.Text("Centro de Costo"))
+                                   .Editor(e => e
+                                       .SelectBox()
+                                       .ID("CboCC")
+                                       .NoDataText("No se encontraron centros de costo del usuario")
+                                       .Placeholder("Selecciona el Centro de Costo")
+                                       .DataSource(d => d.Mvc()
+                                                          .LoadAction("GetCCUsuario")
+                                                          .LoadMode(DataSourceLoadMode.Raw)
+                                                          .LoadParams(new { Usuario = new JS("function() { return $('#NombreUsuario').dxTextBox('instance').option('value'); }"),
+                                                                            IdEmpresa = new JS("function() { return $('#CboEmpresa').dxSelectBox('instance').option('value'); }")
+                                                                          })
+                                                          .Key("IdCentroDeCosto")
+                                                      )
+                                       .SearchEnabled(true)
+                                       .DisplayExpr("NombreCentroDeCosto")
+                                       .ValueExpr("IdCentroDeCosto")
+                                   );
+
+                        items.AddButton()
+                            .HorizontalAlignment(HorizontalAlignment.Center)
+                            .CssClass("btnIniciar")
+                            .ButtonOptions(b => b.Text("Iniciar")
+                                .StylingMode(ButtonStylingMode.Contained)
+                                .ElementAttr("class", "dx-theme-accent-as-background-color")
+                                .UseSubmitBehavior(true)
+                                .Width("100%")
+                        );
+                    })
+                    .FormData(Model)
+                )
+            }
+        </form>
+        <h5 class="dx-theme-accent-as-text-color" style="text-align:right; position:absolute;bottom:5px;right:8px">Versión: @CAEP.Miscelaneos.Propiedades._gVersion</h5>
+    </div>
+</div>
+
+@section Scripts {
+    <script>        
+        function onChangeUsuarioLogin() {
+            $("#CboEmpresa").dxSelectBox("instance").option('value', null);
+            $("#CboEmpresa").dxSelectBox("instance").getDataSource().reload();
+        }
+
+        function onChangeEmpresaLogin() {
+            $("#CboCC").dxSelectBox("instance").option('value', null);
+            $("#CboCC").dxSelectBox("instance").getDataSource().reload();
+        }
+    </script>
+
+    @if (ViewBag.Error != null)
+    {
+        <script>
+            toastr.error("Usuario o Contraseña Incorrectos!", "Error", {
+                "progressBar": true,
+                "closeButton": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": true
+            })
+        </script>
+    }
+}
+

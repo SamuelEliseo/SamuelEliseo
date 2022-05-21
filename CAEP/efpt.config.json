@@ -1,0 +1,289 @@
+﻿{
+   "ContextClassName": "CAEPContext",
+   "ContextNamespace": null,
+   "DefaultDacpacSchema": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": false,
+   "ModelNamespace": null,
+   "OutputContextPath": null,
+   "OutputPath": "Data\/CAEP",
+   "ProjectRootNamespace": "CAEP",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 0,
+   "SelectedToBeGenerated": 0,
+   "Tables": [
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_ASIG_SEMANAS_PRESUPUESTO]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_ASIGNACION_CC_PRESUPUESTO]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_ASIGNACION_CC_USUARIOS]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_ASIGNACION_CUENTAS_CC]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_ASIGNAR_CUENTAS_A_MATERIAL_PREVIO]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_ASIGNAR_ESTACION_BOMBAS]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_ASIGNAR_MATERIALES_A_CUENTA]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_ASIGNAR_MATERIALES_A_DF]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_CATEGORIA_CUENTAS]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_CC_USUARIO_REPORTE]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_CENTROS_DE_COSTO]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_CONCEPTO_DF]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_CUENTAS]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_DATOS_FINCAS_EP_DETALLE]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_DATOS_FINCAS_TB_DETALLE]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_DIVISIONES]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_EJECUCION_VS_PRESUPUESTADO]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_EMPLEADOS]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_EMPRESAS]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_FECHA_CANCE_CONTRA]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_GENERO]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_HORAS_EXTRAS]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_MATERIALES]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_MESES]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_MOC_ASIGNACION_TP]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_MOC_ASIGNACION_TP_PRES]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_MOC_INDICADORES]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_MOC_MAESTRO]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_NUMERO_ESTACION_BOMBAS]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_PAGO_DINAMICO]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_PARAME_BONIFICACIONES]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_PARAME_DIAS_MOC]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_PARAMETERIZACION_DEDUCCION_REMUNERACION]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_PARAMETERIZACION_DEDUCCION_REMUNERACION_ID]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_PARAMETRIZACION_LIMITE]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_PARAMETRIZACION_MOC]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_PARAMETRIZACION_VALOR_DR]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_PARAMETROS_SS]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_PERMISOS_USUARIOS]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_PRESUPUESTO_MAESTRO]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_PRESUPUESTO_SEMANAL_DETALLE]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_PRESUPUESTO_SEMANAL_DETALLE_D]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_PUESTOS]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_RELACIONES]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_SEMANAS]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_SS_PRESTACIONES]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_SS_PRESTACIONES_DETALLE]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_SUCURSALES]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_SUELDOS_Y_SALARIOS_DETALLE]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_TASA_DE_CAMBIO]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_TIPO_DE_CLASE]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_TIPO_FINCA]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_TIPO_LIBRAS]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_TIPO_MATERIAL]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_TIPO_PROCESO]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_TIPO_PROCESO_CATEGORIA]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_TIPO_TASA]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_TIPO_USUARIO]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_TIPO_VALOR]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_TIPOS_DE_PRESUPUESTOS]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_UNIDAD_MEDIDA]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_USUARIOS]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_V_CENTROS_DE_COSTO]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_V_EMPRESAS]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[PR_VALOR_BONIFICACIONES]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[TipoUbicaciones]"
+      }
+   ],
+   "UseDatabaseNames": false,
+   "UseDbContextSplitting": false,
+   "UseFluentApiOnly": false,
+   "UseHandleBars": false,
+   "UseInflector": false,
+   "UseLegacyPluralizer": false,
+   "UseNodaTime": false,
+   "UseSpatial": false,
+   "UseStoredProcedures": false
+}

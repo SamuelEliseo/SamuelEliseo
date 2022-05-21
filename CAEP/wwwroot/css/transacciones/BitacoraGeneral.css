@@ -1,0 +1,284 @@
+﻿body {
+}
+
+#contenedor_centrado {
+    border: 1px solid;
+    width: 99.5%;
+    height: 99.5%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#DgvBitacoraGeneral .dx-datagrid-total-footer > .dx-datagrid-content {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+#DgvLagunaDet .dx-datagrid-total-footer > .dx-datagrid-content {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+#DgvLagunaDet tbody .dx-header-row:nth-child(1) .dx-cell-focus-disabled {
+    padding: 0px !important;
+    height: 10px;
+}
+
+#DgvMovimientos tbody .dx-header-row:nth-child(1) .dx-cell-focus-disabled {
+    padding: 0px !important;
+    height: 10px;
+}
+
+.dx-popup-content {
+    padding: 0;
+}
+
+.recibidos.dx-radiobutton-checked .dx-radiobutton-icon .dx-radiobutton-icon-dot {
+    background: #cdcdcd;
+    background: green;
+}
+
+.entránsito.dx-radiobutton-checked .dx-radiobutton-icon .dx-radiobutton-icon-dot {
+    background: #bdf8c1;
+    background: green;
+}
+
+.anulado.dx-radiobutton-checked .dx-radiobutton-icon .dx-radiobutton-icon-dot {
+    background: #fbdfe5;
+    background: green;
+}
+
+.trasiego.dx-radiobutton-checked .dx-radiobutton-icon .dx-radiobutton-icon-dot {
+    background: #dedde1;
+    background: green;
+    font-family: 'Raleway', sans-serif;
+}
+
+.anulado, dx-item {
+    background-color: #fbdfe5;
+    padding: 5px 10px 5px 10px;
+    border-radius: 6px;
+    box-shadow: 2px 2px 10px #fbdfe5;
+    font-weight: bold;
+    font-size: 15px;
+    font-family: 'Raleway', sans-serif;
+}
+
+.entránsito, dx-item {
+    background-color: #ebf297;
+    padding: 5px 10px 5px 10px;
+    border-radius: 6px;
+    box-shadow: 2px 2px 10px #ebf297;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.recibidos, dx-item {
+    background-color: #bdf8c1;
+    padding: 5px 10px 5px 10px;
+    border-radius: 6px;
+    box-shadow: 2px 2px 10px #bdf8c1;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.trasiego, dx-item {
+    background-color: #f3f3f2;
+    padding: 5px 10px 5px 10px;
+    border-radius: 6px;
+    box-shadow: 2px 2px 10px #f3f3f2;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.completados, dx-item {
+    background-color: #B0C4DE;
+    padding: 5px 8px 5px 8px;
+    border-radius: 6px;
+    box-shadow: 2px 2px 10px #f3f3f2;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.todos, dx-item {
+    background-color: transparent;
+    padding: 5px 8px 5px 8px;
+    border-radius: 6px;
+    box-shadow: 2px 2px 10px #f3f3f2;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.pendientes, dx-item {
+    background-color: #ffe4e1;
+    padding: 5px 8px 5px 8px;
+    border-radius: 6px;
+    box-shadow: 2px 2px 10px #f3f3f2;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+#dgvVisorComparacionBines .todos, dx-item {
+    background-color: transparent;
+    padding: 5px 4px 5px 4px;
+    border-radius: 6px;
+    box-shadow: 2px 2px 10px #f3f3f2;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+#dgvVisorComparacionBines .pendientes, dx-item {
+    background-color: #F5F5F5;
+    padding: 5px 4px 5px 4px;
+    border-radius: 6px;
+    box-shadow: 2px 2px 10px #f3f3f2;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+#dgvVisorComparacionBines .correctos, dx-item {
+    background-color: #B0C4DE;
+    padding: 5px 4px 5px 4px;
+    border-radius: 6px;
+    box-shadow: 2px 2px 10px #f3f3f2;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+#dgvVisorComparacionBines .inconsistentes, dx-item {
+    background-color: #F0E68C;
+    padding: 5px 4px 5px 4px;
+    border-radius: 6px;
+    box-shadow: 2px 2px 10px #f3f3f2;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.textG {
+    font-size: 18px;
+}
+
+.textM {
+    font-size: 15px;
+}
+
+.boton {
+    width: 145px;
+    height: 30px;
+    background-color: #03800b;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    float: left;
+}
+
+.boton:hover {
+    opacity: .80;
+    filter: alpha (opacity=50);
+}
+
+.boton .dx-icon-add:before {
+    text-decoration: none;
+}
+
+.boton:active {
+    box-shadow: inset 0 5px 30px rgba(0,0,0,.2);
+    background-size: 50%;
+}
+
+.dx-icon-add:before {
+    content: "\f00b";
+    color: #a6ed8e;
+}
+
+.color-gris {
+    background-color: #d8dbdc;
+    color: black;
+    font-size: 14.7px;
+    font-family: 'Raleway', sans-serif;
+}
+
+.dx-checkbox-checked .dx-checkbox-icon:before {
+    content: "\f005";
+    position: absolute;
+    display: block;
+    width: 10px;
+    top: 50%;
+    margin-top: -5px;
+    left: 50%;
+    margin-left: -5px;
+    font-weight:bold !important;
+}
+
+#DgvLagDetalle .dx-datagrid-rowsview .dx-data-row .dx-cell-modified .dx-highlight-outline::after {
+    border-color: transparent;
+}
+
+#DgvCustodios .dx-datagrid-rowsview .dx-data-row .dx-cell-modified .dx-highlight-outline::after {
+    border-color: transparent;
+}
+
+#DgvClaTra .dx-datagrid-rowsview .dx-data-row .dx-cell-modified .dx-highlight-outline::after {
+    border-color: transparent;
+}
+
+#dgvAsigClaTra .dx-datagrid-rowsview .dx-data-row .dx-cell-modified .dx-highlight-outline::after {
+    border-color: transparent;
+}
+
+#DgvBinesAdd .dx-datagrid-rowsview .dx-data-row .dx-cell-modified .dx-highlight-outline::after {
+    border-color: transparent;
+}
+
+#DgvInspecciones .dx-datagrid-rowsview .dx-data-row .dx-cell-modified .dx-highlight-outline::after {
+    border-color: transparent;
+}
+
+#DgvLagDetalle .dx-toolbar {
+    padding: 1px 5px 1px 1px;
+}
+
+#DgvBitacoraGeneral .dx-row-focused > td {
+    color: black !important;
+    background-color: #f5dead !important;
+}
+
+#DgvLagunaDet .dx-row-focused > td {
+    color: black !important;
+    background-color: #f5dead !important;
+}
+
+#DgvMovimientos .dx-row-focused > td {
+    color: black !important;
+    background-color: #f5dead !important;
+}
+
+#dgvVehiculos .dx-row-focused > td {
+    color: black !important;
+    background-color: #f5dead !important;
+}
+
+#dgvBinesBitacora .dx-row-focused > td {
+    color: black !important;
+    background-color: #f5dead !important;
+}
+
+#dgvVisorComparacionBines .dx-row-focused > td {
+    color: black !important;
+    background-color: #f5dead !important;
+}
+
+.MasAncho{
+    width:120px;
+}
+
+.MenosAncho {
+    width: 80px;
+}

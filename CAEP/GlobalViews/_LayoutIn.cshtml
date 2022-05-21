@@ -1,0 +1,301 @@
+﻿@using CAEP.Miscelaneos
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@{
+    var tema = Propiedades._gTemaDefault;
+    foreach (var cookie in HttpContextAccessor.HttpContext.Request.Cookies)
+    {
+        if(cookie.Key == "dx-theme")
+        {
+            tema = cookie.Value;
+        }
+    }
+
+    var drawerAbierto = true;
+    foreach (var cookie in HttpContextAccessor.HttpContext.Request.Cookies)
+    {
+        if(cookie.Key == "dx-drawer-state")
+        {
+            drawerAbierto = (cookie.Value == "SI") ;
+        }
+    }
+
+    if (HttpContextAccessor.HttpContext.Session.Get<List<Menu>>("SESSION_MENU") == null) { 
+        HttpContextAccessor.HttpContext.Response.Redirect("/Principal/Default/CerrarSesion");
+    }
+
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Aplicación WEB GGM(@(Propiedades._gNombreSistema))">
+    <meta name="author" content="GGM(@(Propiedades._gNombreSistema))">
+
+    <title>@ViewData["Titulo"] - @(Propiedades._gNombreSistema)</title>
+    <link href="~/imgs/IconCAEP.ico" rel="shortcut icon" type="image/x-icon" />
+
+    @* ESTILOS CSS *@
+    <link href="~/css/devextreme/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/devextreme/dx.common.css" rel="stylesheet" />
+    <link rel="dx-theme" data-theme="generic.cbt" href="~/css/devextreme/dx.cbt.css" data-active="@(tema == "generic.cbt" ? "true" : "false")">
+    <link rel="dx-theme" data-theme="generic.darkcbt" href="~/css/devextreme/dx.darkcbt.css" data-active="@(tema == "generic.darkcbt" ? "true" : "false")">
+    <link rel="dx-theme" data-theme="generic.cbt.compact" href="~/css/devextreme/dx.cbt.compact.css" data-active="@(tema == "generic.cbt.compact" ? "true" : "false")">
+    <link rel="dx-theme" data-theme="generic.darkcbt.compact" href="~/css/devextreme/dx.darkcbt.compact.css" data-active="@(tema == "generic.darkcbt.compact" ? "true" : "false")">
+    <link href="~/css/global/style.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/css/global/toastr.css" rel="stylesheet" />
+    @RenderSection("Estilos", required: false)
+</head>
+<body>
+    @* CÓDIGO JAVASCRIPT *@
+    <script src="~/js/devextreme/jquery.js"></script>
+    <script src="~/js/devextreme/bootstrap.js"></script>
+    <script src="~/js/devextreme/dx.all.js"></script>
+    <script src="~/js/devextreme/aspnet/dx.aspnet.mvc.js"></script>
+    <script src="~/js/devextreme/aspnet/dx.aspnet.data.js"></script>
+    <script src="~/js/devextreme/localization/dx.intl.js"></script>
+    <script src="~/js/devextreme/localization/dx.messages.es.js"></script>
+    <script src="~/js/global/JQcookies.js"></script>
+    <script src="~/js/global/source.js" asp-append-version="true"></script>
+    <script src="~/js/global/Toastr.js"></script>
+
+    <input type="hidden" value="@User.Identity.Name.Trim().ToUpper()" id="_user" />
+    <a style="display:none" asp-area="Principal" asp-controller="Default" asp-action="CerrarSesion" id="_cerrar_sesion"></a>
+    <div class="d-flex flex-column h-100">
+        <div class="toolbar">
+            @(Html.DevExtreme().Toolbar()
+                .ElementAttr("class", "toolbar-fixed dx-theme-accent-as-background-color")
+                .OnContentReady("onToolbarContentReady")
+                .Items(items =>
+                        {
+                    items.Add()
+                        .Widget(w => w
+                        .Button()
+                        .Icon("menu")
+                        .OnClick("openButton_click")
+                        )
+                    .Location(ToolbarItemLocation.Before);
+                    
+                    items.Add()
+                    .Widget(w => w
+                    .SelectBox()
+                    .Width(260)
+                    .ID("CboCCAsignadosFiltro")
+                    .NoDataText("No se encontraron centros de costo para este usuario")
+                    .Placeholder("Selecciona el Centro de Costo")
+                    .DataSource(d => d.Mvc()
+                                        .Controller("Default")
+                                        .LoadAction("GetCCUsuarioActual")
+                                        .LoadMode(DataSourceLoadMode.Raw)
+                                        .Key("IdCentroDeCosto")
+                                    )
+                    .SearchEnabled(true)
+                    .DisplayExpr("NombreCentroDeCosto")
+                    .ValueExpr("IdCentroDeCosto")
+                    .Value(HttpContextAccessor.HttpContext.Session.Get<int>("SESSION_ID_CC"))
+                    .OnValueChanged("CambiarCCFiltroUsuario")
+                    ).LocateInMenu(ToolbarItemLocateInMenuMode.Auto)
+                   .Location(ToolbarItemLocation.Before);
+                                        
+                    items.Add()
+                    .Widget(w => w
+                        .SelectBox()
+                        .Width(140)
+                        .Value(tema)
+                        .DataSource(new[] {
+                            new { tema_src = "generic.cbt", text = "MT", grupo = "Generic" },
+                            new { tema_src = "generic.darkcbt", text = "MT Dark", grupo = "Generic" },
+                            new { tema_src = "generic.cbt.compact", text = "MT Compact", grupo = "Generic Compact" },
+                            new { tema_src = "generic.darkcbt.compact", text = "MT Dark Compact", grupo = "Generic Compact" },
+                        })
+                        .Grouped(true)
+                        .Width(120)
+                        .DataSourceOptions(o => o.Group("grupo"))
+                        .ValueExpr("tema_src")
+                        .DisplayExpr("text")
+                        .OnValueChanged("selectBoxTema_value_changed")
+                    )
+                    .LocateInMenu(ToolbarItemLocateInMenuMode.Auto)
+                    .Location(ToolbarItemLocation.After);
+
+                    items.Add()
+                            .Widget(w => w
+                            .Button()
+                            .Text("Cambiar Contraseña")
+                            .StylingMode(ButtonStylingMode.Text)
+                            .OnClick("cambiar_contrasena")
+                            .Icon("key")
+                            .ElementAttr("style", "font-weight:bold")
+                            )
+                        .Location(ToolbarItemLocation.After)
+                        .LocateInMenu(ToolbarItemLocateInMenuMode.Always);
+
+                    items.Add()
+                        .Widget(w => w
+                        .Button()
+                        .Text("Cerrar Sesión")
+                        .StylingMode(ButtonStylingMode.Text)
+                        .OnClick("cerrar_click")
+                        .Icon("export")
+                        .ElementAttr("style", "font-weight:bold")
+                        )
+                    .Location(ToolbarItemLocation.After)
+                    .LocateInMenu(ToolbarItemLocateInMenuMode.Always);
+
+                    items.Add()
+                            .Template(@<text><div class="toolbar-label"><h4 class="fuente_family m-0 text-white font-weight-bold text-uppercase">@Propiedades._gNombreSistema - @(HttpContextAccessor.HttpContext.Session.Get<string>("SESSION_CC"))</h4></div></text>)
+.LocateInMenu(ToolbarItemLocateInMenuMode.Never)
+.Location(ToolbarItemLocation.Center);
+
+})
+            )
+        </div>
+        <div class="drawer" style="flex:1">
+            @(Html.DevExtreme().Drawer()
+                .ID("drawer")
+                .OpenedStateMode(DrawerOpenedStateMode.Shrink)
+                .Opened(drawerAbierto)
+                .Position(DrawerPosition.Left)
+                .RevealMode(DrawerRevealMode.Slide)
+                .CloseOnOutsideClick(false)
+                .Content(@<text>
+                            <div id="content" class="dx-theme-background-color">
+                                @RenderBody()
+                            </div>
+                </text>)
+.Template(@<text>@await Html.PartialAsync("~/GlobalViews/Parciales/PartialListDrawer.cshtml")</text>)
+            )
+        </div>
+    </div>
+    @RenderSection("Scripts", required: false)
+
+    @using (Html.DevExtreme().NamedTemplate("popup-template-cambiar-contrasena"))
+    {
+        <div style="display:flex;flex-direction:column; height:100%;margin:0px -10px;padding:10px;border-bottom:1px solid; border-top: 1px solid" class="fondo_panel dx-theme-accent-as-border-color">
+            <div style="flex:1; border: 1px solid; border-radius:3px; padding:2px" class="dx-theme-accent-as-border-color">
+                <div class="row mt-1 w-100">
+                    <div class="col-md-5 d-flex pr-1">
+                        <div class="w-100 text-right align-self-center font-weight-bold">Contraseña Anterior:</div>
+                    </div>
+                    <div class="col-md-7 pl-1 pr-0">
+                        @(Html.DevExtreme().TextBox()
+                           .ID("TxtContraseñaAnterior")
+                           .Mode(TextBoxMode.Password)
+                           .Placeholder("Contraseña Anterior")
+                           .ShowClearButton(true)
+                        )
+                    </div>
+                </div>
+                <div class="row mt-2 w-100">
+                    <div class="col-md-5 d-flex pr-1">
+                        <div class="w-100 text-right align-self-center font-weight-bold">Contraseña Nueva:</div>
+                    </div>
+                    <div class="col-md-7 pl-1 pr-0">
+                        @(Html.DevExtreme().TextBox()
+                          .ID("TxtContraseñaNueva")
+                          .Mode(TextBoxMode.Password)
+                          .Placeholder("Contraseña Nueva")
+                          .Width("100%")
+                          .ShowClearButton(true)
+                        )
+                    </div>
+                </div>
+                <div class="row mt-2 w-100">
+                    <div class="col-md-5 d-flex pr-1">
+                        <div class="w-100 text-right align-self-center font-weight-bold">Contraseña Confirmar:</div>
+                    </div>
+                    <div class="col-md-7 pl-1 pr-0">
+                        @(Html.DevExtreme().TextBox()
+                          .ID("TxtContraseñaConfirmar")
+                          .Mode(TextBoxMode.Password)
+                          .Placeholder("Contraseña Confirmación")
+                          .Width("100%")
+                          .ShowClearButton(true)
+                        )
+                    </div>
+                </div>
+                <div class="row mt-2 w-100 mb-1">
+                    <div class="col-md-7 pl-1 pr-0 offset-5">
+                        @(Html.DevExtreme().Button()
+                            .Text("Cambiar")
+                            .StylingMode(ButtonStylingMode.Contained)
+                            .Width("100%")
+                            .OnClick("OnClick_Cambiar_Contrasena")
+                            .ElementAttr("class", "dx-theme-accent-as-background-color boton_color_blanco")
+                        )
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    @(Html.DevExtreme().Popup()
+           .ID("PopupCambiarContrasena")
+           .Width("35%")
+           .Height("auto")
+           .ShowTitle(true)
+           .Title("Cambiar Contraseña")
+           .Visible(false)
+           .DragEnabled(false)
+           .Shading(true)
+           .ContentTemplate(new TemplateName("popup-template-cambiar-contrasena"))
+           .CloseOnOutsideClick(true)
+           .TitleTemplate(@<text>
+                    <h5 class="dx-theme-accent-as-background-color m-0" style="color:white; padding:6px;min-height:100%">Cambiar Contraseña</h5>
+        </text>)
+    )
+
+    @(Html.DevExtreme().Popup()
+       .ID("PopupActividades")
+       .Width(350)
+       .Height(0)
+       .Position(p => p.My(HorizontalAlignment.Right, VerticalAlignment.Top).At(HorizontalAlignment.Right, VerticalAlignment.Top).Of("#content").Offset(0, 0))
+       .Visible(false)
+       .ResizeEnabled(true)
+       .DragEnabled(false)
+       .Shading(!true)
+       .ContentTemplate(new TemplateName("popup-template-actividades-pendientes"))
+       .CloseOnOutsideClick(true)
+       .OnShown("OnShown_PopupNotificaciones")
+       .OnHidden("OnHidden_PopupNotificaciones")
+       .TitleTemplate(@<text><h5 class="dx-theme-accent-as-background-color m-0" style="color:white; padding:6px; text-align:center">ACTIVIDADES PENDIENTES</h5></text>))
+
+    @(Html.DevExtreme().Popup()
+       .ID("PopupNovedades")
+       .Width(350)
+       .Height(0)
+       .Position(p => p.My(HorizontalAlignment.Right, VerticalAlignment.Top).At(HorizontalAlignment.Right, VerticalAlignment.Top).Of("#content").Offset(0, 0))
+       .Visible(false)
+       .ResizeEnabled(true)
+       .DragEnabled(false)
+       .Shading(!true)
+       .ContentTemplate(new TemplateName("popup-template-novedades-pendientes"))
+       .CloseOnOutsideClick(true)
+       .OnShown("OnShown_PopupNotificacionesNov")
+       .OnHidden("OnHidden_PopupNotificacionesNov")
+       .TitleTemplate(@<text><h5 class="dx-theme-accent-as-background-color m-0" style="color:white; padding:6px; text-align:center">NOVEDADES</h5></text>))
+
+
+    @(Html.DevExtreme().Popup()
+        .ID("NuevaActividad-popup")
+        .Width(450).ElementAttr("class", "fuente_family font-weight-bold")
+        .Height("auto")
+        .ShowTitle(true).ShowCloseButton(true)
+        .Title("Crear")
+        .Visible(false)
+        //.OnShown("actualizarDatos")
+        .DragEnabled(true)
+        .CloseOnOutsideClick(true)
+        .TitleTemplate(@<text>
+                    <div class="card-header pr-1 pl-1 pt-1 pb-1 dx-theme-accent-as-background-color">
+                        <h5 class="text-white m-0 text-uppercase fuente_family font-weight-bold d-flex align-items-center justify-content-center" style="text-align:left">
+                            <img src="~/imgs/Icon.png" style="width:26px;margin-right:4px" /><span id="titulo" style="margin-top:1px">NUEVA ACTIVIDAD</span>
+                        </h5>
+                    </div>
+        </text>)
+    )
+       
+</body>
+</html>

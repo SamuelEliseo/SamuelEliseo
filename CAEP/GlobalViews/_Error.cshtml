@@ -1,0 +1,31 @@
+﻿@using CAEP.Miscelaneos;
+@model ErrorViewModel
+<html>
+<head>
+    <title>Error - @Propiedades._gNombreSistema</title>
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif&display=swap" rel="stylesheet">
+    <link href="~/imgs/Icon.ico" rel="shortcut icon" type="image/x-icon" />
+    <style>
+        body {
+            font-family: 'Bree Serif';
+        }
+    </style>
+</head>
+<body style="height: 100%">
+    <div style="height: 100%;
+        text-align: center;
+        padding-top: 15px;
+        font-weight: bold">
+        <h1>@Propiedades._gNombreSistema - Oops!</h1>
+        <h2>Vaya, algo ha salido mal. intenta de nuevo</h2>
+        @if (Model.ShowRequestId)
+        {
+            <p>
+                <strong>Solicitud ID:</strong> <code>@Model.RequestId</code>
+            </p>
+        }
+        <a href="/">Regresar</a>
+        <img src="~/imgs/Logo.png" style="position: absolute;left: 50%;top: 60%;transform: translate(-50%, -50%);width: 350px" />
+    </div>
+</body>
+</html>
